@@ -1,29 +1,32 @@
 window.onload = () => {
     const FIELD = document.getElementById('field')
     const CHANGED_CELLS = new Set()
-    const CELLSQ = 20
+    const CELLS = 50
     let timer
     let playing = false
     const STARTBTN = document.getElementById('startBtn')
     const rowNumbers = document.getElementById('row-num')
     const columnNumbers = document.getElementById('col-num')
-    const FUN = document.getElementById("funBtn")
-    const GLIDER = document.getElementById("gliderBtn")
+    const SOUP = document.getElementById("soupBtn")
+    const OSCILLATOR = document.getElementById("oscillatorBtn")
     fillField(FIELD);
     STARTBTN.addEventListener('click', startBtnHandler)
-    FUN.addEventListener('click', funHandler)
-    GLIDER.addEventListener('click', gliderHandler)
+    SOUP.addEventListener('click', soupHandler)
+    OSCILLATOR.addEventListener('click', oscillatorHandler)
 
-    function gliderHandler() {
+    function oscillatorHandler() {
         let ids =[
-            "14-14", "15-13", "16-16", "17-15"
+            "14-12", "15-13", "12-14", "13-15", "29-15", "30-16"
         ]
         for (id of ids){
             changeCell(id)
         }
-        start()
+        if (!playing){
+            start()
+        }
     }
-    function funHandler() {
+
+    function soupHandler() {
         let ids =[ 
             "8-6", "9-5", "9-12", "10-5", "10-7", "10-11",
             "11-4", "11-6", "11-9", "11-12", "12-3", "12-4",
@@ -33,7 +36,9 @@ window.onload = () => {
         for (id of ids){
             changeCell(id)
         }
-        start()
+        if (!playing){
+            start()
+        }
     }
 
     function startBtnHandler() {
@@ -49,17 +54,18 @@ window.onload = () => {
     function start() {
         playing = true
         STARTBTN.innerHTML = 'stop'
-        play();
+        loop();
     }
-    function play() {
+
+    function loop() {
         life();
         if (playing) {
-            timer = setTimeout(play, 400)
+            timer = setTimeout(loop, 100)
         }
     }
 
     function fillField(field) {
-        for (let i = 0; i < CELLSQ; i++) {
+        for (let i = 0; i < CELLS; i++) {
             let row = document.createElement('div')
             row.className = 'row'
             row.id = 'row-' + i
@@ -72,7 +78,7 @@ window.onload = () => {
             rowNumbers.appendChild(rowNumber)
             columnNumbers.appendChild(colNumber)
 
-            for (let j = 0; j < CELLSQ; j++) {
+            for (let j = 0; j < CELLS; j++) {
                 let cell = document.createElement('div')
                 cell.className = 'dead'
                 cell.id = String(i) + '-' + j
@@ -98,8 +104,8 @@ window.onload = () => {
         let neighbors = new Set()
         let [column, row] = id.split('-');
 
-        for (let i = column - 1; (i < +column + 2) && (i < CELLSQ) && (i >= 0); i++) {
-            for (let j = row - 1; (j < +row + 2) && (j < CELLSQ) && (j >= 0); j++){
+        for (let i = column - 1; (i < +column + 2) && (i < CELLS) && (i >= 0); i++) {
+            for (let j = row - 1; (j < +row + 2) && (j < CELLS) && (j >= 0); j++){
                 neighbors.add(i + '-' + j)
             }
         }
@@ -107,7 +113,7 @@ window.onload = () => {
         return neighbors
     }
 
-    function getAliveNeighbors(neighbors){
+    function countAliveNeighbors(neighbors){
         let aliveNeighbors = 0
 
         for (let id of neighbors){
@@ -125,18 +131,22 @@ window.onload = () => {
             let cell = document.getElementById(id)
             let className = cell.className
             let neighbors = getNeighbors(id)
-            let aliveNeighbors = getAliveNeighbors(neighbors)
+            let aliveNeighbors = countAliveNeighbors(neighbors)
 
-            if (className == 'alive' && aliveNeighbors != 2){
-                cellsToChange.add(id)
-            } else if (className == 'dead' && aliveNeighbors == 2) {
-                cellsToChange.add(id)
+            if (className == 'dead' && aliveNeighbors == 0) {
+                CHANGED_CELLS.delete(id)
+                continue
+            }
+            else {
                 let neighbors = getNeighbors(id)
                 for (neighbor of neighbors){
                     CHANGED_CELLS.add(neighbor)
                 }
-            } else if (className == 'dead' && aliveNeighbors == 0) {
-                CHANGED_CELLS.delete(id)
+                if (className == 'alive' && aliveNeighbors != 2){
+                    cellsToChange.add(id)
+                } else if (className == 'dead' && aliveNeighbors == 2) {
+                    cellsToChange.add(id)
+                }
             }
         }
         for (let id of cellsToChange) {
@@ -145,4 +155,3 @@ window.onload = () => {
         }
     }
 }
-

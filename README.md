@@ -1,2 +1,2 @@
 # b2/s2
-Simplest game of life, not working correctly. <br/> Sometimes bugs. <br/>Rules 2 for birth, 2 for survive.<br/> At least stable structures is indeed stable
+Simplest game of life. Presets of fast growing chaotic soup and two oscillator - 2-periodic and 4-periodic.
