@@ -7,13 +7,14 @@ window.onload = () => {
     const STARTBTN = document.getElementById('startBtn')
     const rowNumbers = document.getElementById('row-num')
     const columnNumbers = document.getElementById('col-num')
-    const FUN = document.getElementById("fun")
-
+    const FUN = document.getElementById("funBtn")
+    const GLIDER = document.getElementById("gliderBtn")
     fillField(FIELD);
     STARTBTN.addEventListener('click', startBtnHandler)
     FUN.addEventListener('click', funHandler)
+    GLIDER.addEventListener('click', gliderHandler)
 
-    function funHandler() {
+    function gliderHandler() {
         let ids =[
             "14-14", "15-13", "16-16", "17-15"
         ]
@@ -22,9 +23,12 @@ window.onload = () => {
         }
         start()
     }
-    function gliderHandler() {
+    function funHandler() {
         let ids =[ 
-            "17-14", "18-1", "18-11", "18-12", "18-15", "18-19", "19-4"
+            "8-6", "9-5", "9-12", "10-5", "10-7", "10-11",
+            "11-4", "11-6", "11-9", "11-12", "12-3", "12-4",
+            "12-6", "12-7", "12-12", "13-2", "13-11", "13-12",
+            "13-13", "14-6", "15-6", "15-9", "16-6", "17-7", "17-8"
         ]
         for (id of ids){
             changeCell(id)
@@ -50,7 +54,7 @@ window.onload = () => {
     function play() {
         life();
         if (playing) {
-            timer = setTimeout(play, 5000)
+            timer = setTimeout(play, 400)
         }
     }
 
@@ -67,6 +71,7 @@ window.onload = () => {
             rowNumber.innerHTML = i
             rowNumbers.appendChild(rowNumber)
             columnNumbers.appendChild(colNumber)
+
             for (let j = 0; j < CELLSQ; j++) {
                 let cell = document.createElement('div')
                 cell.className = 'dead'
@@ -81,6 +86,7 @@ window.onload = () => {
     function changeCell(id) {
         CHANGED_CELLS.add(id)
         let cell = document.getElementById(id)
+
         if (cell.className == 'alive'){
             cell.className = 'dead'
         } else  {
@@ -134,7 +140,6 @@ window.onload = () => {
             }
         }
         for (let id of cellsToChange) {
-            console.log(id)
             changeCell(id)
             CHANGED_CELLS.add(id)
         }
