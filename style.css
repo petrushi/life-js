@@ -25,14 +25,14 @@ body {
     width: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 30px 0 0 0;
+    justify-content: space-evenly;
+    padding: 24px 0 0 0;
 
 }
 #col-num {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 .field-column-container {
     display: flex;
@@ -43,4 +43,8 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: 150px;
+}
+.num {
+    width: 20px;
+    height: 20px;
 }

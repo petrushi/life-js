@@ -14,9 +14,17 @@ window.onload = () => {
     FUN.addEventListener('click', funHandler)
 
     function funHandler() {
+        let ids =[
+            "14-14", "15-13", "16-16", "17-15"
+        ]
+        for (id of ids){
+            changeCell(id)
+        }
+        start()
+    }
+    function gliderHandler() {
         let ids =[ 
-            "12-17", "13-3", "13-5", "13-7", "13-17", "14-1", "14-4", "14-11", "14-15", "15-2", "15-5", "15-6", "15-11", "15-13", "15-14",
-            "15-15", "15-17", "16-1","16-15", "17-2", "17-4", "17-8", "17-9", "17-14", "18-1", "18-11", "18-12", "18-15", "18-19", "19-4",
+            "17-14", "18-1", "18-11", "18-12", "18-15", "18-19", "19-4"
         ]
         for (id of ids){
             changeCell(id)
@@ -42,7 +50,7 @@ window.onload = () => {
     function play() {
         life();
         if (playing) {
-            timer = setTimeout(play, 400)
+            timer = setTimeout(play, 5000)
         }
     }
 
@@ -51,8 +59,10 @@ window.onload = () => {
             let row = document.createElement('div')
             row.className = 'row'
             row.id = 'row-' + i
-            let colNumber = document.createElement('span')
-            let rowNumber = document.createElement('span')
+            let colNumber = document.createElement('div')
+            let rowNumber = document.createElement('div')
+            colNumber.className = 'num'
+            rowNumber.className = 'num'
             colNumber.innerHTML = i
             rowNumber.innerHTML = i
             rowNumbers.appendChild(rowNumber)
@@ -103,17 +113,18 @@ window.onload = () => {
     }
 
     function life() {
+        let cellsToChange = new Set()
 
         for (let id of CHANGED_CELLS) {
             let cell = document.getElementById(id)
             let className = cell.className
             let neighbors = getNeighbors(id)
             let aliveNeighbors = getAliveNeighbors(neighbors)
-            
+
             if (className == 'alive' && aliveNeighbors != 2){
-                changeCell(id, className)
+                cellsToChange.add(id)
             } else if (className == 'dead' && aliveNeighbors == 2) {
-                changeCell(id, className)
+                cellsToChange.add(id)
                 let neighbors = getNeighbors(id)
                 for (neighbor of neighbors){
                     CHANGED_CELLS.add(neighbor)
@@ -121,6 +132,11 @@ window.onload = () => {
             } else if (className == 'dead' && aliveNeighbors == 0) {
                 CHANGED_CELLS.delete(id)
             }
+        }
+        for (let id of cellsToChange) {
+            console.log(id)
+            changeCell(id)
+            CHANGED_CELLS.add(id)
         }
     }
 }
