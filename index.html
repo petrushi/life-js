@@ -5,20 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js"></script> 
+    <script src="script.js"></script>
     <title>kleto4ki</title>
 </head>
 <body>
-    <div id="row-num"></div>
-    <div class="field-column-container">
-        <div id="col-num"></div>
+    <div id="container">
         <div id="field"></div>
-    </div>
-    <div id="controls">
-        <button id="startBtn">start</button>
-        <button id="resetBtn">remove half</button>
-        <button id="soupBtn">soup setup</button>
-        <button id="oscillatorBtn">oscillator setup</button>
+        <div id="controls">
+            <div class="info">
+                <span>This is Conway's Game of Life with rules: 2 alive(red) neighbors for birth and 2 for survive.<br></span>
+                <span>One can click on cells to change their status and press start to see that happens.<br></span>
+                <span>Or one can choose a setup with some oscillators or two gliders collapsing to chaotic soup.</span>
+            </div>
+            <button id="startBtn">start</button>
+            <button id="resetBtn">remove half</button>
+            <button id="soupBtn">soup setup</button>
+            <button id="oscillatorBtn">oscillator setup</button>
+        </div>
     </div>
 </body>
 </html>

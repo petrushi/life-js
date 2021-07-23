@@ -1,13 +1,20 @@
 body {
     background-color: #aaa;
-    display: flex;
 }
 button {
+    background-color: rgb(222, 222, 222);
     margin-bottom: 20px;
-    min-height: 40px;
+    width: 120px;
+    height: 40px;
+    border-radius: 10%;
+    border-color: rgb(133, 133, 133);
 }
-button:hover {
-    background-color: rgb(197, 120, 120);
+button:active {
+    background-color: rgb(86, 103, 110);
+}
+#container {
+    display: flex;
+    flex-direction: row;    
 }
 .row {
     display: inline-block;
@@ -22,7 +29,7 @@ button:hover {
     height: 15px;
     width: 15px;
     margin: 0 0 2px 2px;
-    background-color: rgb(197, 120, 120);
+    background-color: rgb(120, 8, 8);
 }
 
 #controls {

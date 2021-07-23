@@ -2,11 +2,10 @@ window.onload = () => {
     const FIELD = document.getElementById('field')
     const CHANGED_CELLS = new Set()
     const CELLS = 50
+    let SPEED = 120
     let timer
     let playing = false
     const STARTBTN = document.getElementById('startBtn')
-    const rowNumbers = document.getElementById('row-num')
-    const columnNumbers = document.getElementById('col-num')
     const SOUP = document.getElementById("soupBtn")
     const OSCILLATOR = document.getElementById("oscillatorBtn")
     const RESET = document.getElementById("resetBtn")
@@ -22,6 +21,7 @@ window.onload = () => {
         if (playing) {
             playing = false
             STARTBTN.innerHTML = 'start'
+            STARTBTN.style.backgroundColor = 'rgb(222, 222, 222)'
             clearTimeout(timer)
         } else {
             start()
@@ -63,13 +63,14 @@ window.onload = () => {
     function start() {
         playing = true
         STARTBTN.innerHTML = 'stop'
+        STARTBTN.style.backgroundColor = 'rgb(86, 103, 110)'
         loop();
     }
 
     function loop() {
         life();
         if (playing) {
-            timer = setTimeout(loop, 100)
+            timer = setTimeout(loop, SPEED)
         }
     }
 
