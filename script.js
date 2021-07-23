@@ -9,14 +9,36 @@ window.onload = () => {
     const columnNumbers = document.getElementById('col-num')
     const SOUP = document.getElementById("soupBtn")
     const OSCILLATOR = document.getElementById("oscillatorBtn")
+    const RESET = document.getElementById("resetBtn")
+
     fillField(FIELD);
     STARTBTN.addEventListener('click', startBtnHandler)
     SOUP.addEventListener('click', soupHandler)
     OSCILLATOR.addEventListener('click', oscillatorHandler)
+    RESET.addEventListener('click', clearField)
+
+
+    function startBtnHandler() {
+        if (playing) {
+            playing = false
+            STARTBTN.innerHTML = 'start'
+            clearTimeout(timer)
+        } else {
+            start()
+        }
+    }
+
+    function clearField() {
+        let aliveCells = document.getElementsByClassName('alive')
+        for (cell of aliveCells){
+            cell.className = 'dead'
+        }
+    }
 
     function oscillatorHandler() {
         let ids =[
-            "14-12", "15-13", "12-14", "13-15", "29-15", "30-16"
+            "14-12", "15-13", "12-14", "13-15", "29-15", "30-16",
+            "46-12", "45-13", "47-13"
         ]
         for (id of ids){
             changeCell(id)
@@ -27,26 +49,13 @@ window.onload = () => {
     }
 
     function soupHandler() {
-        let ids =[ 
-            "8-6", "9-5", "9-12", "10-5", "10-7", "10-11",
-            "11-4", "11-6", "11-9", "11-12", "12-3", "12-4",
-            "12-6", "12-7", "12-12", "13-2", "13-11", "13-12",
-            "13-13", "14-6", "15-6", "15-9", "16-6", "17-7", "17-8"
+        let ids =[
+            "21-0", "24-0", "22-2", "23-2", "21-49", "24-49", "22-47", "23-47"
         ]
         for (id of ids){
             changeCell(id)
         }
         if (!playing){
-            start()
-        }
-    }
-
-    function startBtnHandler() {
-        if (playing) {
-            playing = false
-            STARTBTN.innerHTML = 'start'
-            clearTimeout(timer)
-        } else {
             start()
         }
     }
@@ -69,14 +78,6 @@ window.onload = () => {
             let row = document.createElement('div')
             row.className = 'row'
             row.id = 'row-' + i
-            let colNumber = document.createElement('div')
-            let rowNumber = document.createElement('div')
-            colNumber.className = 'num'
-            rowNumber.className = 'num'
-            colNumber.innerHTML = i
-            rowNumber.innerHTML = i
-            rowNumbers.appendChild(rowNumber)
-            columnNumbers.appendChild(colNumber)
 
             for (let j = 0; j < CELLS; j++) {
                 let cell = document.createElement('div')
