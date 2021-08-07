@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/life.js"></script>
     <title>kleto4ki</title>
 </head>
+
 <body>
     <div id="container">
         <div id="field"></div>
         <div id="controls">
             <div class="info">
-                <span>This is Conway's Game of Life with rules: 2 alive(red) neighbors for birth and 2 for survive.<br></span>
+                <span>This is Conway's Game of Life with rules: 2 alive(red) neighbors for birth and 2 for
+                    survive.<br></span>
                 <span>One can click on cells to change their status and press start to see what happens.<br></span>
-                <span>Or choose a setup with some oscillators or two gliders collapsing to chaotic soup.</span>
+                <span>Or choose a setup with some oscillators or two gliders collapsing into chaotic soup.</span>
             </div>
-            <button id="startBtn">start</button>
-            <button id="resetBtn">remove half</button>
-            <button id="soupBtn">soup setup</button>
-            <button id="oscillatorBtn">oscillator setup</button>
+            <div class="buttons">
+                <button id="startBtn"><span>start</span></button>
+                <button id="clearHalfbtn"><span>remove half</span></button>
+                <button id="soupBtn"><span>soup setup</span></button>
+                <button id="oscillatorBtn"><span>oscillator setup</span></button>
+            </div>
         </div>
     </div>
 </body>
+
 </html>

@@ -1,69 +1,69 @@
 window.onload = () => {
     const FIELD = document.getElementById('field')
     const CHANGED_CELLS = new Set()
-    const CELLS = 50
+    let CELLS = 50
     let SPEED = 120
     let timer
     let playing = false
     const STARTBTN = document.getElementById('startBtn')
     const SOUP = document.getElementById("soupBtn")
     const OSCILLATOR = document.getElementById("oscillatorBtn")
-    const RESET = document.getElementById("resetBtn")
+    const CLEARHALF = document.getElementById("clearHalfbtn")
 
-    fillField(FIELD);
     STARTBTN.addEventListener('click', startBtnHandler)
     SOUP.addEventListener('click', soupHandler)
     OSCILLATOR.addEventListener('click', oscillatorHandler)
-    RESET.addEventListener('click', clearField)
+    CLEARHALF.addEventListener('click', removeHalf)
 
+    fillField(FIELD);
 
     function startBtnHandler() {
         if (playing) {
             playing = false
-            STARTBTN.innerHTML = 'start'
-            STARTBTN.style.backgroundColor = 'rgb(222, 222, 222)'
+            STARTBTN.innerHTML = '<span>start</span>'
+            STARTBTN.style.backgroundColor = '#451e3e'
             clearTimeout(timer)
         } else {
             start()
         }
     }
 
-    function clearField() {
+    function removeHalf() {
         let aliveCells = document.getElementsByClassName('alive')
-        for (cell of aliveCells){
+        for (cell of aliveCells) {
             cell.className = 'dead'
         }
     }
 
     function oscillatorHandler() {
-        let ids =[
+        let ids = [
             "14-12", "15-13", "12-14", "13-15", "29-15", "30-16",
             "46-12", "45-13", "47-13"
         ]
-        for (id of ids){
+        for (id of ids) {
             changeCell(id)
         }
-        if (!playing){
+        if (!playing) {
             start()
         }
     }
 
     function soupHandler() {
-        let ids =[
+        let ids = [
             "21-0", "24-0", "22-2", "23-2", "21-49", "24-49", "22-47", "23-47"
         ]
-        for (id of ids){
+        for (id of ids) {
             changeCell(id)
         }
-        if (!playing){
+        if (!playing) {
             start()
         }
     }
 
     function start() {
         playing = true
-        STARTBTN.innerHTML = 'stop'
-        STARTBTN.style.backgroundColor = 'rgb(86, 103, 110)'
+        STARTBTN.innerHTML = '<span>stop</span>'
+        STARTBTN.style.backgroundColor = '#651e3e'
         loop();
     }
 
@@ -95,9 +95,9 @@ window.onload = () => {
         CHANGED_CELLS.add(id)
         let cell = document.getElementById(id)
 
-        if (cell.className == 'alive'){
+        if (cell.className == 'alive') {
             cell.className = 'dead'
-        } else  {
+        } else {
             cell.className = 'alive'
         }
     }
@@ -107,7 +107,7 @@ window.onload = () => {
         let [column, row] = id.split('-');
 
         for (let i = column - 1; (i < +column + 2) && (i < CELLS) && (i >= 0); i++) {
-            for (let j = row - 1; (j < +row + 2) && (j < CELLS) && (j >= 0); j++){
+            for (let j = row - 1; (j < +row + 2) && (j < CELLS) && (j >= 0); j++) {
                 neighbors.add(i + '-' + j)
             }
         }
@@ -115,10 +115,10 @@ window.onload = () => {
         return neighbors
     }
 
-    function countAliveNeighbors(neighbors){
+    function countAliveNeighbors(neighbors) {
         let aliveNeighbors = 0
 
-        for (let id of neighbors){
+        for (let id of neighbors) {
             if (document.getElementById(id).className == 'alive') {
                 aliveNeighbors++;
             }
@@ -141,10 +141,10 @@ window.onload = () => {
             }
             else {
                 let neighbors = getNeighbors(id)
-                for (neighbor of neighbors){
+                for (neighbor of neighbors) {
                     CHANGED_CELLS.add(neighbor)
                 }
-                if (className == 'alive' && aliveNeighbors != 2){
+                if (className == 'alive' && aliveNeighbors != 2) {
                     cellsToChange.add(id)
                 } else if (className == 'dead' && aliveNeighbors == 2) {
                     cellsToChange.add(id)
