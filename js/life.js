@@ -2,7 +2,7 @@ window.onload = () => {
     const FIELD = document.getElementById('field')
     const CHANGED_CELLS = new Set()
     let CELLS = 50
-    let SPEED = 120
+    let SPEED = 4120
     let timer
     let playing = false
     const STARTBTN = document.getElementById('startBtn')
@@ -141,12 +141,11 @@ window.onload = () => {
             }
             else {
                 let neighbors = getNeighbors(id)
-                for (neighbor of neighbors) {
+                
+                for (neighbor of neighbors){
                     CHANGED_CELLS.add(neighbor)
                 }
-                if (className == 'alive' && aliveNeighbors != 2) {
-                    cellsToChange.add(id)
-                } else if (className == 'dead' && aliveNeighbors == 2) {
+                if ((className == 'alive' && aliveNeighbors != 2) || (className == 'dead' && aliveNeighbors == 2)) {
                     cellsToChange.add(id)
                 }
             }
