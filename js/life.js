@@ -2,18 +2,20 @@ window.onload = () => {
     const FIELD = document.getElementById('field')
     const CHANGED_CELLS = new Set()
     let CELLS = 50
-    let SPEED = 4120
+    let SPEED = 120
     let timer
     let playing = false
     const STARTBTN = document.getElementById('startBtn')
     const SOUP = document.getElementById("soupBtn")
     const OSCILLATOR = document.getElementById("oscillatorBtn")
-    const CLEARHALF = document.getElementById("clearHalfbtn")
+    const CLEARHALF = document.getElementById("clearHalfBtn")
+    const CLEAR = document.getElementById("clearBtn")
 
     STARTBTN.addEventListener('click', startBtnHandler)
     SOUP.addEventListener('click', soupHandler)
     OSCILLATOR.addEventListener('click', oscillatorHandler)
     CLEARHALF.addEventListener('click', removeHalf)
+    CLEAR.addEventListener('click', clear)
 
     fillField(FIELD);
 
@@ -32,6 +34,14 @@ window.onload = () => {
         let aliveCells = document.getElementsByClassName('alive')
         for (cell of aliveCells) {
             cell.className = 'dead'
+        }
+    }
+
+    function clear() {
+        let aliveCells = document.getElementsByClassName('alive')
+        let length = aliveCells.length
+        for (let i = 0; i < length; i++){
+            aliveCells[0].className = 'dead'
         }
     }
 
@@ -141,8 +151,8 @@ window.onload = () => {
             }
             else {
                 let neighbors = getNeighbors(id)
-                
-                for (neighbor of neighbors){
+
+                for (neighbor of neighbors) {
                     CHANGED_CELLS.add(neighbor)
                 }
                 if ((className == 'alive' && aliveNeighbors != 2) || (className == 'dead' && aliveNeighbors == 2)) {
