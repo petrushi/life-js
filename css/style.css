@@ -25,7 +25,7 @@ button:active {
     display: inline-block;
 }
 .dead {
-    height: 20px;
+    height: 15px;
     width: 15px;
     margin: 0 0 2px 2px;
     background-color: #999999;
