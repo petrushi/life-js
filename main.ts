@@ -1,3 +1,9 @@
-import { serve } from "https://deno.land/std@0.155.0/http/server.ts";
+import { Application } from "https://deno.land/x/oak@11.1.0/mod.ts";
 
-serve((req: Request) => new Response("Hello World"));
+const app = new Application();
+
+app.use((ctx) => {
+  ctx.response.body = "Hello from Deno and AWS Lightsail!";
+});
+
+await app.listen({ port: 8000 });
