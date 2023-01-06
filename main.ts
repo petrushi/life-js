@@ -1,9 +1,11 @@
-import { Application } from "https://deno.land/x/oak@11.1.0/mod.ts";
+console.log("hello?")
 
-const app = new Application();
+// import { Application } from "https://deno.land/x/oak@11.1.0/mod.ts";
 
-app.use((ctx) => {
-  ctx.response.body = "Hello from Deno and AWS Lightsail!";
-});
+// const app = new Application();
 
-await app.listen({ port: 8000 });
+// app.use((ctx) => {
+//   ctx.response.body = "Hello from Deno and AWS Lightsail!";
+// });
+
+// await app.listen({ port: 8000 });
